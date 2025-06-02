@@ -5,8 +5,10 @@
   },
   "name": "majorproject",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": "start nodemon app.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
