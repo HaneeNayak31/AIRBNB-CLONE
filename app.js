@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config(); // Load environment variables from .env file
 }
+const Listing = require("./models/listing.js");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -12,7 +13,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const joi = require("joi");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const listingRouter = require("./routes/listing.js");
-const reviewRouter = require("H:\\MAJORPROJECT\\routes\\review.js"); // Corrected path
+const reviewRouter = require("./routes/review.js"); // Corrected path
 const session = require("express-session");
 const MongoStore = require("connect-mongo"); // Import MongoStore for session storage
 const flash = require("connect-flash");
@@ -54,7 +55,7 @@ const sessionOptions = {
   store, // Use the MongoStore instance for session storage
   secret: process.env.SECRET,
   resave: false,
-  saveuninitialized: true,
+  saveUninitialized: true,
   cookie: {
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
