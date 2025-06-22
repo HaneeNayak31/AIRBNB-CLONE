@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config(); // Load environment variables from .env file
 }
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -19,8 +20,6 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user.js"); // Corrected path
-const multer = require("multer"); // If you need multer for file uploads
-const upload = multer({ dest: "uploads/" }); // Configure multer to store files in 'uploads' directory
 const userRouter = require("./routes/user.js"); // Corrected path
 const dbUrl = process.env.ATLASDB_URL || "mongodb://localhost:27017/wanderlust"; // Use environment variable or default to local MongoDB
 async function main() {
@@ -75,8 +74,10 @@ app.use((req, res, next) => {
 passport.use(new LocalStrategy(User.authenticate())); // Use local strategy for authentication
 passport.serializeUser(User.serializeUser()); // Serialize user
 passport.deserializeUser(User.deserializeUser()); // Deserialize user
-
 app.use("/listings", listingRouter);
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 app.use("/listings/:id/reviews", reviewRouter); // Mount the listings router
 app.use("/", userRouter); // Mount the user router
 app.use((err, req, res, next) => {
