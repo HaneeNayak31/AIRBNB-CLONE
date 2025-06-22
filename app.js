@@ -1,7 +1,6 @@
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config(); // Load environment variables from .env file
 }
-//const Listing = require("./models/listing.js");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
